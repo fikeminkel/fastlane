@@ -3,6 +3,7 @@ module Fastlane
     # Execute a shell command
     # This method will output the string and execute it
     # Just an alias for sh_no_action
+    # When running this in tests, it will return the actual command instead of executing it
     # @param log [boolean] should fastlane print out the executed command
     def self.sh(command, log: true)
       sh_no_action(command, log: log)
@@ -25,7 +26,7 @@ module Fastlane
         IO.popen(command, err: [:child, :out]) do |io|
           io.sync = true
           io.each do |line|
-            Helper.log.info ['[SHELL]', line.strip].join(': ')
+            Helper.log.info ['[SHELL]', line.strip].join(': ') if log
             result << line
           end
           io.close
@@ -34,7 +35,9 @@ module Fastlane
 
         if exit_status != 0
           # this will also append the output to the exception
-          raise "Exit status of command '#{command}' was #{exit_status} instead of 0. \n#{result}"
+          message = "Exit status of command '#{command}' was #{exit_status} instead of 0."
+          message += "\n#{result}" if log
+          raise message.red
         end
       end
 

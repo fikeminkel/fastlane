@@ -4,7 +4,7 @@ There are multiple ways of doing code signing right. Letting Xcode automatically
 
 ### Easy Solution: Static Setting
 
-In your project file set the correct `Provisioning Profile` and use the the `gym` integration in `fastlane`.
+In your project file set the correct `Provisioning Profile` and use the `gym` integration in `fastlane`.
 
 **Disadvantages**: As soon as your provisioning profile changes, you'll have to update your project file. Therefore not a long-term solution.
 
@@ -16,7 +16,7 @@ PROVISIONING_PROFILE = "";
 ```
 To fill the profile in using environment variables use 
 ```
-PROVISIONING_PROFILE = "$(PROFILE_UDID)";
+PROVISIONING_PROFILE = "$(PROFILE_UUID)";
 ```
 This allows the Xcode project to use `Automatic` provisioning profiles and enables `fastlane` to set a custom profile.
 
@@ -25,8 +25,8 @@ In your `Fastfile`, add the following between your `sigh` and `gym` call:
 ```ruby
 sigh
 
-# use the UDID of the newly created provisioning profile
-ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
+# use the UID of the newly created provisioning profile
+ENV["PROFILE_UUID"] = lane_context[SharedValues::SIGH_UDID]
 
 gym(scheme: "Release")
 ```

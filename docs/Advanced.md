@@ -68,6 +68,16 @@ lane :calculate do |options|
 end
 ```
 
+## Run actions directly
+
+If you just want to try an action without adding them to your `Fastfile` yet, you can use
+
+```sh
+fastlane run notification message:"My Text" title:"The Title"
+```
+
+To get the avaiable options for any action run `fastlane action [action_name]`. You might not be able to set some kind of parameters using this method.
+
 ## Shell values
 You can get value from shell commands:
 ```ruby
@@ -214,20 +224,4 @@ You can set the environment variable `FASTLANE_SKIP_UPDATE_CHECK` to skip the up
 
 ## Gitignore
 
-If you use git it is recommended that you keep the `fastlane` configuration files in your repository. You may want to add the following lines to your `.gitignore` file to exclude some generated and temporary files:
-
-```sh
-# fastlane temporary profiling data
-/fastlane/report.xml
-# deliver temporary error output
-/fastlane/Error*.png
-# deliver temporary preview output
-/fastlane/Preview.html
-# snapshot generated screenshots
-/fastlane/screenshots/*/*-portrait.png
-/fastlane/screenshots/*/*-landscape.png
-/fastlane/screenshots/screenshots.html
-# frameit generated screenshots
-/fastlane/screenshots/*/*-portrait_framed.png
-/fastlane/screenshots/*/*-landscape_framed.png
-```
+The documentation was moved to [Gitignore.md](https://github.com/KrauseFx/fastlane/blob/master/docs/Gitignore.md).
